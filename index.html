@@ -5,17 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <style>
+        :root {
+            --primary-color: #6200ee;
+            --secondary-color: #03dac6;
+            --background-dark: #121212;
+            --background-light: #ffffff;
+            --text-dark: #ffffff;
+            --text-light: #121212;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+            transition: background-color 0.5s, color 0.5s;
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
 
         header {
-            background-color: #1f1f1f;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             padding: 20px;
             text-align: center;
+            animation: gradient 3s infinite alternate;
         }
 
         header h1 {
@@ -28,17 +40,18 @@
         }
 
         nav a {
-            color: #bb86fc;
+            color: var(--text-dark);
             text-decoration: none;
             margin: 0 15px;
+            transition: color 0.3s;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: var(--secondary-color);
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 20px;
         }
@@ -48,39 +61,45 @@
         }
 
         .section h2 {
-            color: #bb86fc;
-            border-bottom: 2px solid #bb86fc;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 5px;
             display: inline-block;
         }
 
         .projects {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
 
         .project {
-            background-color: #1f1f1f;
-            border: 1px solid #333;
+            background: var(--background-light);
+            color: var(--text-light);
             border-radius: 8px;
             padding: 15px;
-            width: calc(50% - 20px);
-            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         }
 
         .project h3 {
             margin-top: 0;
-            color: #03dac6;
+            color: var(--secondary-color);
         }
 
         footer {
-            background-color: #1f1f1f;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
             text-align: center;
             padding: 15px;
             position: fixed;
             bottom: 0;
             width: 100%;
+            animation: gradient 3s infinite alternate-reverse;
         }
 
         footer p {
@@ -88,12 +107,40 @@
         }
 
         footer a {
-            color: #bb86fc;
+            color: var(--text-dark);
             text-decoration: none;
         }
 
         footer a:hover {
             text-decoration: underline;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            border: none;
+            color: var(--text-dark);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--secondary-color);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes gradient {
+            from {
+                background-position: 0%;
+            }
+            to {
+                background-position: 100%;
+            }
         }
     </style>
 </head>
@@ -106,6 +153,8 @@
             <a href="#contact">Contact</a>
         </nav>
     </header>
+
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
 
     <div class="container">
         <section id="about" class="section">
@@ -140,5 +189,24 @@
     <footer>
         <p>&copy; 2024 [Your Name]. Built with ❤️. <a href="https://github.com/yourgithubusername" target="_blank">GitHub</a></p>
     </footer>
+
+    <script>
+        function toggleTheme() {
+            const root = document.documentElement;
+            const isDark = getComputedStyle(root).getPropertyValue('--background-dark') === root.style.backgroundColor;
+
+            if (isDark) {
+                root.style.setProperty('--background-dark', '#ffffff');
+                root.style.setProperty('--text-dark', '#121212');
+                root.style.setProperty('--background-light', '#121212');
+                root.style.setProperty('--text-light', '#ffffff');
+            } else {
+                root.style.setProperty('--background-dark', '#121212');
+                root.style.setProperty('--text-dark', '#ffffff');
+                root.style.setProperty('--background-light', '#ffffff');
+                root.style.setProperty('--text-light', '#121212');
+            }
+        }
+    </script>
 </body>
 </html>
