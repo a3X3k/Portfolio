@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         :root {
             --primary-color: #6200ee;
@@ -33,6 +36,7 @@
         header h1 {
             margin: 0;
             font-size: 2.5em;
+            animation: fadeInDown 1s;
         }
 
         nav {
@@ -65,6 +69,7 @@
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 5px;
             display: inline-block;
+            animation: fadeInLeft 1s;
         }
 
         .projects {
@@ -80,6 +85,7 @@
             padding: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
+            animation: zoomIn 1s;
         }
 
         .project:hover {
@@ -90,6 +96,12 @@
         .project h3 {
             margin-top: 0;
             color: var(--secondary-color);
+        }
+
+        .project img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
 
         footer {
@@ -127,6 +139,13 @@
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             transition: background 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle i {
+            margin-right: 8px;
         }
 
         .theme-toggle:hover {
@@ -146,7 +165,7 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to My Portfolio</h1>
+        <h1 class="animate__animated animate__fadeInDown">Welcome to My Portfolio</h1>
         <nav>
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
@@ -154,32 +173,37 @@
         </nav>
     </header>
 
-    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-moon"></i> Toggle Theme
+    </button>
 
     <div class="container">
         <section id="about" class="section">
-            <h2>About Me</h2>
+            <h2 class="animate__animated animate__fadeInLeft">About Me</h2>
             <p>Hi! I'm [Your Name], a passionate developer specializing in [your skills/technologies]. I love creating innovative solutions and learning new technologies.</p>
         </section>
 
         <section id="projects" class="section">
-            <h2>Projects</h2>
+            <h2 class="animate__animated animate__fadeInLeft">Projects</h2>
             <div class="projects">
-                <div class="project">
+                                <div class="project animate__animated animate__zoomIn">
+                    <img src="path_to_your_image/project1.jpg" alt="Project 1 Screenshot">
                     <h3>Project 1</h3>
                     <p>Description of your project. Highlight its purpose, technologies used, and unique features.</p>
                     <a href="#" target="_blank">View Project</a>
                 </div>
-                <div class="project">
+                <div class="project animate__animated animate__zoomIn">
+                    <img src="path_to_your_image/project2.jpg" alt="Project 2 Screenshot">
                     <h3>Project 2</h3>
                     <p>Description of your project. Highlight its purpose, technologies used, and unique features.</p>
                     <a href="#" target="_blank">View Project</a>
                 </div>
+                <!-- Add more project cards as needed -->
             </div>
         </section>
 
         <section id="contact" class="section">
-            <h2>Contact Me</h2>
+            <h2 class="animate__animated animate__fadeInLeft">Contact Me</h2>
             <p>If you'd like to work together or have any questions, feel free to reach out:</p>
             <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
             <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
@@ -193,20 +217,24 @@
     <script>
         function toggleTheme() {
             const root = document.documentElement;
-            const isDark = getComputedStyle(root).getPropertyValue('--background-dark') === root.style.backgroundColor;
+            const currentTheme = root.style.getPropertyValue('--background-dark') === '#121212' ? 'dark' : 'light';
 
-            if (isDark) {
+            if (currentTheme === 'dark') {
                 root.style.setProperty('--background-dark', '#ffffff');
                 root.style.setProperty('--text-dark', '#121212');
                 root.style.setProperty('--background-light', '#121212');
                 root.style.setProperty('--text-light', '#ffffff');
+                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
             } else {
                 root.style.setProperty('--background-dark', '#121212');
                 root.style.setProperty('--text-dark', '#ffffff');
                 root.style.setProperty('--background-light', '#ffffff');
                 root.style.setProperty('--text-light', '#121212');
+                document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon');
             }
         }
     </script>
 </body>
 </html>
+
+ 
